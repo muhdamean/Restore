@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+   
+    public class ProductsController : BaseApiController
     {
         
         private readonly StoreContext _context;
@@ -30,7 +29,9 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public ActionResult<Product> GetProduct(int id)
         {
-            return _context.Products.Find(id);
+            var product= _context.Products.Find(id);
+            if(product==null) return NotFound();
+            return product;
         }
     }
 }

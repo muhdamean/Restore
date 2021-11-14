@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { Product } from "../../models/product";
+import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
+import { Product } from "../../app/models/product";
 import ProductList from "./ProductList";
 
 // interface Props{
@@ -9,12 +11,20 @@ import ProductList from "./ProductList";
 
 export default function Catalog(){
     const [products, setProducts]=useState<Product[]>([]);
+    const [loading, setLoading]=useState(true);
 
-    useEffect(()=>{
-      fetch('http://localhost:5000/api/products')
-        .then(response=>response.json())
-        .then(data=>setProducts(data))
-    }, [])
+    useEffect(()=> {
+      agent.Catalog.list()
+      .then(products=> setProducts(products))
+      .catch(error=>console.log(error))
+      .finally(()=>setLoading(false))
+    },[])
+
+    // useEffect(()=>{
+    //   fetch('http://localhost:5000/api/products')
+    //     .then(response=>response.json())
+    //     .then(data=>setProducts(data))
+    // }, [])
   
     // function addProduct(){
     //   setProducts(prevState=>[...prevState, 
@@ -27,6 +37,8 @@ export default function Catalog(){
     //       pictureUrl:'https://picsum.photos/200'
     //     }])
     // }
+
+    if (loading) return <LoadingComponent message='Loading products...' />
 
     return(
        <>
