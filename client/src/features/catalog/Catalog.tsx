@@ -23,7 +23,7 @@ const sortOptions=[
 export default function Catalog(){
     //const [products, setProducts]=useState<Product[]>([]);
     const products=useAppSelector(productSelectors.selectAll);
-    const {productsLoaded, status, filtersLoaded, brands, types, productParams, metaData}=useAppSelector(state=>state.catalog);
+    const {productsLoaded, filtersLoaded, brands, types, productParams, metaData}=useAppSelector(state=>state.catalog);
     const dispatch=useAppDispatch();
     //const [loading, setLoading]=useState(true);
 

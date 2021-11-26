@@ -1,4 +1,3 @@
-import { Pagination } from "@mui/material";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
