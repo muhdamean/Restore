@@ -69,7 +69,7 @@ namespace API
             {
                 opt.User.RequireUniqueEmail=true;
             })
-                    .AddRoles<IdentityRole>()
+                    .AddRoles<Role>()
                     .AddEntityFrameworkStores<StoreContext>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt=>
@@ -104,7 +104,7 @@ namespace API
             app.UseRouting();
             app.UseCors(opt=>{
                 opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-                    .WithOrigins("http://localhost:3000","http://localhost:3001","http://localhost:13241");
+                    .WithOrigins("http://localhost:3000","http://localhost:3001");
             });
 
             app.UseAuthentication();
