@@ -2,24 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Entities.OrderAggregate;
 
-namespace API.Entities.OrderAggregate
+namespace API.DTOs
 {
-    public class Order
+    public class OrderDto
     {
         public int Id { get; set; }
         public string BuyerId { get; set; }
         public ShippingAddress ShippingAddress { get; set; }
         public DateTime OrderDate { get; set; }=DateTime.Now;
-        public List<OrderItems> OrderItems { get; set; }
+        public List<OrderItemDto> OrderItems { get; set; }
         public long SubTotal { get; set; }
         public long DeliveryFee { get; set; }
-        public OrderStatus OrderStatus { get; set; }=OrderStatus.Pending;
-
-        public long GetTotal()
-        {
-            return SubTotal+DeliveryFee;
-        }
+        public string OrderStatus { get; set; }
+        public long Total { get; set; }
         
         
     }
