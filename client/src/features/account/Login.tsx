@@ -6,28 +6,51 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Paper } from '@mui/material';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { useAppDispatch } from '../../app/store/configureStore';
 import { signInUser } from './accountSlice';
 
-export default function Login() {
-  const history=useHistory();
-  const dispatch=useAppDispatch();
-  const {register, handleSubmit, formState: {isSubmitting, errors, isValid}}=useForm({
-    mode:'all'
-  })
-
-async function submitForm(data:FieldValues){
-    await dispatch(signInUser(data));
-    history.push('/catalog');
+interface CustomizedState {
+  from: string
 }
 
+export default function Login() {
+    const navigate=useNavigate();
+    const location=useLocation().state as CustomizedState;
+    const dispatch=useAppDispatch();
+    const{register, handleSubmit, formState: {isSubmitting, errors, isValid}}=useForm({
+        mode:'all'
+    })
+
+    async function submitForm(data:FieldValues){
+      try{
+        await dispatch(signInUser(data));
+        // console.log(location?.pathname )
+        navigate(location?.from || '/catalog');
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+    // const [values, setValues]=useState({
+    //     username:'',
+    //     password:''
+    // });
+//   const handleSubmit = (event:any) => {
+//     event.preventDefault();
+//     agent.Account.login(values);
+//   };
+//   function handleInputChange(event:any){
+//     const {name, value}=event.target;
+//     setValues({...values, [name]:value});
+//   }
+
   return (
-   
-      <Container component={Paper} maxWidth="sm" 
-      sx={{display:'flex', flexDirection:'column', alignItems:'center',p:4}}>
+    
+      <Container component={Paper} maxWidth="xs" 
+            sx={{display:'flex', flexDirection:'column',alignItems:'center', p:4}}>
        
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -41,7 +64,7 @@ async function submitForm(data:FieldValues){
               fullWidth
               label="Username"
               autoFocus
-              {...register('username',{required:'Username is required'})}
+              {...register('username', {required:'Username is required'})}
               error={!!errors.username}
               helperText={errors?.username?.message}
             />
@@ -50,14 +73,14 @@ async function submitForm(data:FieldValues){
               fullWidth
               label="Password"
               type="password"
-              {...register('password',{required:'Password is required'})}
+              {...register('password', {required:'Password is required'})}
               error={!!errors.password}
               helperText={errors?.password?.message}
+
             />
-           
-            <LoadingButton
-              loading={isSubmitting}
-              disabled={!isValid}
+            
+            <LoadingButton loading={isSubmitting}
+                disabled={!isValid}
               type="submit"
               fullWidth
               variant="contained"
@@ -66,16 +89,14 @@ async function submitForm(data:FieldValues){
               Sign In
             </LoadingButton>
             <Grid container>
-              
               <Grid item>
-                <Link to='/register'>
+                <Link to='/register' >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
-       
       </Container>
-    
+   
   );
 }
