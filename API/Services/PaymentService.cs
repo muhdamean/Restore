@@ -51,7 +51,7 @@ namespace API.Services
             return intent;
         }
 
-        //Stripe test config
+        //Stripe test config 
         // "StripeSettings":{
         //   "PublishableKey":"pk_test_51LMDrNAvWCuijZdmLEO6U7OYOS85TJDVsFQRbSG4BASWruhtGyNGA8oqKdwBicFtRcsm7Yr5IXM0UAcJzGymqjif00Xa0IX9k8",
         //   "SecretKey":"sk_test_51LMDrNAvWCuijZdmIz72or168cq2EpfYE9Lg0wL0sjuNzLlWLatHJhsVUSunf39p3odae80e6irLN1LzeUPp5oRf00JqvF9wc5",
