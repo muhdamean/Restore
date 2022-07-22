@@ -62,7 +62,8 @@ namespace API
             });
             services.AddDbContext<StoreContext>(opt=>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                //opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); //DefaultConnection": "Data Source=store.db"
             });
             services.AddCors();
             services.AddIdentityCore<User>(opt=>
