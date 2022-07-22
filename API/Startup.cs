@@ -103,9 +103,13 @@ namespace API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors(opt=>{
                 opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-                    .WithOrigins("http://localhost:3000","http://localhost:3001");
+                    .WithOrigins("http://localhost:3000");
             });
 
             app.UseAuthentication();
@@ -114,6 +118,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index","Fallback");
             });
         }
     }
