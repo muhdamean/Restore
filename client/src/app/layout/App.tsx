@@ -23,6 +23,7 @@ import { fetchCurrentUser } from '../../features/account/accountSlice';
 import PrivateRoute from './PrivateRoute';
 import Orders from '../../features/orders/Orders';
 import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
+import Inventory from '../../features/admin/inventory';
 
 function App() {
   const dispatch=useAppDispatch(); //const {setBasket}=useStoreContext();
@@ -90,6 +91,7 @@ function App() {
           <Route  element={<PrivateRoute/>} >
               <Route path='/checkout' element={<CheckoutWrapper />}></Route>
               <Route path='/orders' element={<Orders />}></Route>
+              <Route path='/inventory' element={<Inventory />}></Route>
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
