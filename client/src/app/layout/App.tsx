@@ -91,6 +91,8 @@ function App() {
           <Route  element={<PrivateRoute/>} >
               <Route path='/checkout' element={<CheckoutWrapper />}></Route>
               <Route path='/orders' element={<Orders />}></Route>
+          </Route>
+          <Route  element={<PrivateRoute roles={['Admin']}/>} >
               <Route path='/inventory' element={<Inventory />}></Route>
           </Route>
           <Route path='/login' element={<Login />} />
